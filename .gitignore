@@ -77,3 +77,10 @@ cypress/screenshots/
 
 # Docs (internal / draft)
 prd.md
+
+.vs
+testsprite_tests/
+API_INTEGRATION_GUIDE.md
+COMPLETE_API_INTEGRATION.md
+FILIERES_FEATURE.md
+TESTING_SUMMARY.md
