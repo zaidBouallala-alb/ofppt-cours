@@ -1,0 +1,16 @@
+{
+  "status": "commited",
+  "type": "frontend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:5173",
+  "executionArgs": {
+    "projectName": "my-app",
+    "projectPath": "c:\\Users\\pc\\mobil-app\\projects\\my-app",
+    "testIds": [],
+    "additionalInstruction": "",
+    "envs": {
+      "API_KEY": "sk-user-hcj_RfUy7egCUuaqimqj_W0NaQcKMh8oZxbsldBlfWsvv_Jp_CmCcqwkQoHSz45Y0Mg2MvK2mDZ1CiqOSe-23TSOsdmCr9iq8z0V7c-SsSvemwpEWUKNdmPh3MOP0vxQdUQ"
+    }
+  },
+  "proxy": "http://e55bcf0b-b834-402f-8b17-c9efef03b140:k47v28Bd6W0pLHgNtMqEUaVFZhTS8ES9@tun.testsprite.com:8080"
+}
