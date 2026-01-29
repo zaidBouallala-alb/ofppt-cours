@@ -36,8 +36,8 @@ A next-generation educational platform built with **React**, **Vite**, and **Tai
 
 clone the repository:
 ```bash
-git clone https://github.com/your-username/ofppt-course-explorer.git
-cd ofppt-course-explorer
+git clone https://github.com/zaidbouallala-alb/reactApp.git
+cd reactApp
 ```
 
 Install dependencies:
