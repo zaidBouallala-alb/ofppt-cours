@@ -144,7 +144,7 @@ export default function CoursesPage() {
     return (
         <div className="relative min-h-screen w-full overflow-hidden transition-colors duration-500">
             <SEO
-                title={`${activeTab === 'efm' ? 'Exam Materials' : activeTab === 'controls' ? 'Controls' : 'Course Lessons'} - Module ${moduleId}`}
+                title={`${activeTab === 'efm' ? 'Module Exams' : activeTab === 'controls' ? 'Controls' : 'Course Lessons'} - Module ${moduleId}`}
                 description={`Access ${activeTab} resources for module ${moduleId}. Download PDF lessons, exams, and controls.`}
                 keywords={`ofppt, cours, exams, controls, module ${moduleId}, ${activeTab}`}
             />
@@ -176,9 +176,10 @@ export default function CoursesPage() {
 
                     <div className="flex flex-col md:flex-row items-center md:items-end gap-6">
                         <div className={`relative w-24 h-24 rounded-2xl flex items-center justify-center shadow-lg 
-                             ${activeTab === 'efm' ? 'bg-gradient-to-br from-amber-400 to-orange-500 shadow-amber-500/30' :
-                                activeTab === 'controls' ? 'bg-gradient-to-br from-emerald-400 to-teal-500 shadow-teal-500/30' :
-                                    'bg-gradient-to-br from-indigo-400 to-blue-500 shadow-blue-500/30'} 
+                             ${activeTab === 'eff' ? 'bg-gradient-to-br from-rose-400 to-pink-500 shadow-rose-500/30' :
+                                activeTab === 'efm' ? 'bg-gradient-to-br from-amber-400 to-orange-500 shadow-amber-500/30' :
+                                    activeTab === 'controls' ? 'bg-gradient-to-br from-emerald-400 to-teal-500 shadow-teal-500/30' :
+                                        'bg-gradient-to-br from-indigo-400 to-blue-500 shadow-blue-500/30'} 
                              transform transition-all duration-500`}>
                             <div className="text-white transform scale-125">
                                 {ICONS[activeTab]("w-10 h-10")}
@@ -188,10 +189,10 @@ export default function CoursesPage() {
 
                         <div className="text-center md:text-left">
                             <h1 className="text-3xl md:text-5xl font-black bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-indigo-600 dark:from-white dark:to-indigo-300 mb-2">
-                                {activeTab === 'efm' ? 'Exam Materials' : activeTab === 'controls' ? 'Controls & Tests' : 'Course Lessons'}
+                                {activeTab === 'efm' ? 'Module Exams' : activeTab === 'controls' ? 'Controls & Tests' : 'Course Lessons'}
                             </h1>
                             <p className="text-slate-500 dark:text-slate-400 font-medium max-w-lg">
-                                Access and download your {activeTab === 'efm' ? 'final exams and regional' : activeTab === 'controls' ? 'continuous assessments' : 'lessons and presentations'}.
+                                Access and download your {activeTab === 'efm' ? 'end of module exams (EFM)' : activeTab === 'controls' ? 'continuous assessments' : 'lessons and presentations'}.
                             </p>
                         </div>
                     </div>
@@ -276,7 +277,7 @@ export default function CoursesPage() {
                                 {ICONS[activeTab]("w-12 h-12 text-slate-500")}
                             </div>
                             <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200 mb-2">
-                                No {activeTab === 'efm' ? 'Exams' : activeTab === 'controls' ? 'Controls' : 'Lessons'} Yet
+                                No {activeTab === 'efm' ? 'EFM Exams' : activeTab === 'controls' ? 'Controls' : 'Lessons'} Yet
                             </h3>
                             <p className="text-slate-500 dark:text-slate-400 max-w-xs mx-auto">
                                 Check back later or try switching to another category.

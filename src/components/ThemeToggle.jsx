@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-const BACKGROUNDS = [
-    { id: 1, name: 'Geometric' },
-    { id: 2, name: 'Fluid Glass' },
-    { id: 3, name: 'Minimal Tech' },
-    { id: 4, name: 'Nature Clean' },
-    { id: 5, name: 'Neon Dark' },
-    { id: 0, name: 'Default Gradient' } // Fallback
-];
-
 export default function ThemeToggle() {
     // Theme State
     const [isDark, setIsDark] = useState(() => {
@@ -20,70 +11,30 @@ export default function ThemeToggle() {
         return false;
     });
 
-    // Background State
-    const [currentBg, setCurrentBg] = useState(() => {
-        if (typeof window !== 'undefined') {
-            const saved = localStorage.getItem('app_bg');
-            return saved ? parseInt(saved) : 1;
-        }
-        return 1;
-    });
-
-    // Apply Theme
+    // Apply Theme and Background
     useEffect(() => {
         const root = window.document.documentElement;
+        
+        // Remove old bg classes
+        root.classList.remove('app-bg-1', 'app-bg-5');
+        
         if (isDark) {
             root.classList.add('dark');
+            root.classList.add('app-bg-5');
+            root.style.setProperty('--bg-image', `url('/backgrounds/bg-5.png')`);
             localStorage.setItem('theme', 'dark');
         } else {
             root.classList.remove('dark');
+            root.classList.add('app-bg-1');
+            root.style.setProperty('--bg-image', `url('/backgrounds/bg-1.png')`);
             localStorage.setItem('theme', 'light');
         }
     }, [isDark]);
 
-    // Apply Background
-    useEffect(() => {
-        const root = window.document.documentElement;
-        // Remove old bg classes
-        for (let i = 0; i <= 5; i++) root.classList.remove(`app-bg-${i}`);
-
-        // Add new bg class
-        if (currentBg > 0) {
-            root.classList.add(`app-bg-${currentBg}`);
-            root.style.setProperty('--bg-image', `url('/backgrounds/bg-${currentBg}.png')`);
-        } else {
-            root.style.removeProperty('--bg-image');
-        }
-
-        localStorage.setItem('app_bg', currentBg);
-    }, [currentBg]);
-
     const toggleTheme = () => setIsDark(!isDark);
-
-    const cycleBackground = () => {
-        setCurrentBg(prev => (prev >= 5 ? 1 : prev + 1));
-    };
 
     return (
         <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
-
-            {/* Background Switcher */}
-            <button
-                onClick={cycleBackground}
-                className="p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-lg 
-                     hover:bg-white/20 hover:scale-110 active:scale-95 transition-all duration-300 group relative"
-                title={`Change Background: ${BACKGROUNDS.find(b => b.id === currentBg)?.name}`}
-            >
-                <div className="w-6 h-6 flex items-center justify-center">
-                    <svg className="w-5 h-5 text-indigo-500 dark:text-indigo-400 group-hover:rotate-180 transition-transform duration-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                </div>
-                {/* Tooltip */}
-                <div className="absolute top-full right-0 mt-2 px-2 py-1 bg-slate-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                    BG: {BACKGROUNDS.find(b => b.id === currentBg)?.name}
-                </div>
-            </button>
 
             {/* Theme Toggle */}
             <button

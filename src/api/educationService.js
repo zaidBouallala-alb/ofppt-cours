@@ -127,6 +127,24 @@ export const getControls = async (moduleId) => {
     }
 };
 
+/**
+ * Get EFFs (Examen de Fin de Formation) for a specific formation
+ * @param {number} formationId - The ID of the formation (filière)
+ * @returns {Promise<Array>} Array of EFF objects
+ */
+export const getEffs = async (formationId) => {
+    if (!formationId) {
+        throw new Error('Formation ID is required');
+    }
+
+    try {
+        const data = await apiClient.get(`/filieres/${formationId}/effs`);
+        return data;
+    } catch (error) {
+        throw error;
+    }
+};
+
 // Backward compatibility alias
 export const getResources = getExams;
 
@@ -152,6 +170,7 @@ export default {
     getCourses,
     getExams,
     getEfms,
+    getEffs,
     getControls,
     getResources, // Backward compatibility
     downloadFile,
