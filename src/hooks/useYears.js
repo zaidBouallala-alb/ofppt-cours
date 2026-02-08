@@ -1,37 +1,16 @@
-import { useState, useEffect } from "react";
 import { getYears } from "../api/educationService";
+import { useFetch } from "./useFetch";
 
 /**
  * Custom hook to fetch and manage education years data
+ * Uses generic useFetch with caching
  * @returns {Object} { years, loading, error }
  */
 export const useYears = () => {
-  const [years, setYears] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { data, loading, error } = useFetch(getYears, [], 'years');
 
-  useEffect(() => {
-    const loadYears = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        // Fetch data using the centralized service layer
-        const data = await getYears();
-
-        // Sort by order to ensure consistent display
-        const sortedData = data.sort((a, b) => a.order - b.order);
-        setYears(sortedData);
-      } catch (err) {
-        setError(err.message || "Failed to load education years");
-        setYears([]); // Clear years on error
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadYears();
-  }, []);
+  // Sort by order safely
+  const years = data ? [...data].sort((a, b) => a.order - b.order) : [];
 
   return { years, loading, error };
 };
