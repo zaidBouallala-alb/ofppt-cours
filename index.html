@@ -2,10 +2,89 @@
 <html lang="en">
 
 <head>
+  <!-- Basic -->
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" href="/logo.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OFPPT Cours</title>
+  <title>OFPPT Cours | Free OFPPT Courses, Exams & PDF Resources</title>
+
+  <!-- Fonts & Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- SEO Meta -->
+  <meta name="description"
+    content="Access hundreds of free OFPPT courses, exams (EFF), and PDF summaries for Technicien Spécialisé, DD, ID, and more. Boost your career with Morocco's top e-learning platform." />
+  <meta name="keywords"
+    content="OFPPT, OFPPT cours, technicine spécialisé, developpement digital, fullstack, ofppt exams, eff, ofppt pdf, formation professionnelle maroc, learning" />
+  <meta name="author" content="OFPPT Cours" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://ofppt-cours.vercel.app/" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/logo.png" />
+
+  <!-- Open Graph (Facebook, LinkedIn) -->
+  <meta property="og:title" content="OFPPT Cours | Master Your Professional Training" />
+  <meta property="og:description"
+    content="Free access to OFPPT courses, summaries, and exams. Ace your formation with our comprehensive resources." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ofppt-cours.vercel.app/" />
+  <meta property="og:image" content="https://ofppt-cours.vercel.app/cover.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="OFPPT Cours | Free Professional Training Resources" />
+  <meta name="twitter:description"
+    content="Download free OFPPT PDF courses and exams. The ultimate resource for Moroccan trainees." />
+  <meta name="twitter:image" content="https://ofppt-cours.vercel.app/cover.png" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "OFPPT Cours",
+        "url": "https://ofppt-cours.vercel.app/",
+        "description": "The #1 platform for OFPPT students. Access free courses, EFF exams, and summaries.",
+        "publisher": {
+          "@type": "EducationalOrganization",
+          "name": "OFPPT Cours",
+          "logo": "https://ofppt-cours.vercel.app/logo.png"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "OFPPT Cours",
+        "url": "https://ofppt-cours.vercel.app/",
+        "logo": "https://ofppt-cours.vercel.app/logo.png",
+        "sameAs": [
+          "https://github.com/zaidBouallala-alb/zaidBouallala-alb"
+        ],
+        "description": "Free educational resources, exams, and courses for professional training in Morocco."
+      }
+    ]
+  </script>
+
+  <!-- Theme Init (Prevent FOUC) -->
+  <script>
+    (function () {
+      try {
+        const savedTheme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) { }
+    })();
+  </script>
 </head>
 
 <body>
