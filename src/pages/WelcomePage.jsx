@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import ThemeToggle from "../components/ThemeToggle";
-import SEO from "../components/SEO";
+import ThemeToggle from "../components/ui/ThemeToggle";
+import SEO from "../components/common/SEO";
 
 export default function EducateWelcomePage() {
   const navigate = useNavigate();

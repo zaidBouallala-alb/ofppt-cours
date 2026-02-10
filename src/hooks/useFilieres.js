@@ -1,24 +1,18 @@
 import { getFormations } from "../api/educationService";
-import { useFetch } from "./useFetch";
-import { useCallback } from "react";
+import { useQuery } from '@tanstack/react-query';
+import { educationQueries } from '../api/queries';
 
 /**
  * Custom hook to fetch formations for a specific year
  * @param {number|string} yearId - ID of the year
  * @returns {Object} { formations, loading, error }
  */
-export const useFilieres = (yearId) => {
-    // Wrap fetch function
-    const fetchFormations = useCallback(() => {
-        if (!yearId) return Promise.resolve([]);
-        return getFormations(yearId);
-    }, [yearId]);
+export function useFilieres(yearId) {
+    const {
+        data: filieres = [],
+        isLoading: loading,
+        error
+    } = useQuery(educationQueries.formations(yearId));
 
-    const { data: formations, loading, error } = useFetch(
-        fetchFormations,
-        [yearId],
-        yearId ? `formations-${yearId}` : null
-    );
-
-    return { formations: formations || [], loading, error };
-};
+    return { Filieres: filieres, loading, error: error ? error.message : null };
+}
