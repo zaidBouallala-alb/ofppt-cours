@@ -76,11 +76,12 @@
       try {
         const savedTheme = localStorage.getItem('theme');
         const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const root = document.documentElement;
 
         if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
-          document.documentElement.classList.add('dark');
+          root.classList.add('dark');
         } else {
-          document.documentElement.classList.remove('dark');
+          root.classList.remove('dark');
         }
       } catch (e) { }
     })();

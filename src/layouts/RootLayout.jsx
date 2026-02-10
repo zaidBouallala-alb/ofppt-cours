@@ -4,11 +4,13 @@ import ErrorBoundary from '../components/ui/ErrorBoundary';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import Footer from '../components/layout/Footer';
 import GoogleAnalytics from '../components/common/GoogleAnalytics';
+import InstallPrompt from '../components/common/InstallPrompt';
 
 export default function RootLayout() {
     return (
         <>
             <GoogleAnalytics />
+            <InstallPrompt />
             <div className="flex flex-col min-h-screen">
                 <main className="flex-grow flex flex-col">
                     <ErrorBoundary>

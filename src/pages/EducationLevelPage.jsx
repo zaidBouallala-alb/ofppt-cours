@@ -52,7 +52,7 @@ export default function EducationLevelPage() {
 
         {/* Header Section */}
         <header className="flex flex-col items-center mb-10 text-center max-w-lg mx-auto animate-fade-in">
-          <div className="w-16 h-16 mb-6 p-3 bg-[var(--bg-card)] rounded-xl border border-[var(--border-card)] shadow-sm">
+          <div className="w-16 h-16 mb-6 p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
             <img src="/logo.png" alt="OFPPT Logo" width="64" height="64" className="w-full h-full object-contain" />
           </div>
 

@@ -12,36 +12,36 @@ import {
 export const educationQueries = {
     years: () => queryOptions({
         queryKey: ['years'],
-        queryFn: getYears,
+        queryFn: ({ signal }) => getYears({ signal }),
     }),
     formations: (yearId) => queryOptions({
         queryKey: ['formations', yearId],
-        queryFn: () => getFormations(yearId),
+        queryFn: ({ signal }) => getFormations(yearId, { signal }),
         enabled: !!yearId,
     }),
     modules: (formationId) => queryOptions({
         queryKey: ['modules', formationId],
-        queryFn: () => getModules(formationId),
+        queryFn: ({ signal }) => getModules(formationId, { signal }),
         enabled: !!formationId,
     }),
     courses: (moduleId) => queryOptions({
         queryKey: ['courses', moduleId],
-        queryFn: () => getCourses(moduleId),
+        queryFn: ({ signal }) => getCourses(moduleId, { signal }),
         enabled: !!moduleId,
     }),
     controls: (moduleId) => queryOptions({
         queryKey: ['controls', moduleId],
-        queryFn: () => getControls(moduleId),
+        queryFn: ({ signal }) => getControls(moduleId, { signal }),
         enabled: !!moduleId,
     }),
     efms: (moduleId) => queryOptions({
         queryKey: ['efms', moduleId],
-        queryFn: () => getEfms(moduleId),
+        queryFn: ({ signal }) => getEfms(moduleId, { signal }),
         enabled: !!moduleId,
     }),
     effs: (formationId) => queryOptions({
         queryKey: ['effs', formationId],
-        queryFn: () => getEffs(formationId),
+        queryFn: ({ signal }) => getEffs(formationId, { signal }),
         enabled: !!formationId,
     }),
 };

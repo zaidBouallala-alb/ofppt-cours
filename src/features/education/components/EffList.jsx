@@ -30,10 +30,12 @@ const EffList = ({ formationId }) => {
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-20">
             {effs.map((eff, index) => (
-                <div
+                <a
                     key={eff.id || index}
-                    onClick={(e) => handleDownload(e, eff)}
-                    className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 hover:shadow-md transition-all duration-200 cursor-pointer flex items-center justify-between gap-5 animate-slide-up"
+                    href={eff.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 hover:shadow-md transition-all duration-200 cursor-pointer flex items-center justify-between gap-5 animate-slide-up block"
                     style={{ animationDelay: `${index * 0.05}s` }}
                 >
                     {/* Left Side: Icon & Info */}
@@ -58,11 +60,11 @@ const EffList = ({ formationId }) => {
                     <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 
                              group-hover:bg-rose-600 group-hover:text-white transition-all flex items-center justify-center 
                              flex-shrink-0">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                         </svg>
                     </div>
-                </div>
+                </a>
             ))}
         </div>
     );

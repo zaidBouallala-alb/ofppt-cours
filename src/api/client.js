@@ -1,6 +1,20 @@
 import axios from 'axios';
 
 /**
+ * Custom API Error Class
+ * Standardizes error handling across the application
+ */
+export class ApiError extends Error {
+    constructor(message, status, code, data) {
+        super(message);
+        this.name = 'ApiError';
+        this.status = status;
+        this.code = code;
+        this.data = data;
+    }
+}
+
+/**
  * Axios client instance configured for the education API
  */
 const apiClient = axios.create({
@@ -13,11 +27,10 @@ const apiClient = axios.create({
 
 /**
  * Request interceptor
- * Add any authentication tokens or custom headers here
  */
 apiClient.interceptors.request.use(
     (config) => {
-        // Add any request modifications here
+        // Future: Add auth token here if needed
         return config;
     },
     (error) => {
@@ -27,20 +40,47 @@ apiClient.interceptors.request.use(
 
 /**
  * Response interceptor
- * Handle common response patterns and errors
+ * Normalizes responses and standardized errors
  */
 apiClient.interceptors.response.use(
     (response) => {
-        // Extract data from the API response format: { success: true, data: [...] }
+        // Normalize: Always return the data payload
         if (response.data && response.data.success && response.data.data !== undefined) {
             return response.data.data;
         }
         return response.data;
     },
     (error) => {
-        // Handle common error patterns
-        const errorMessage = error.response?.data?.message || error.message || 'An error occurred';
-        return Promise.reject(new Error(errorMessage));
+        if (axios.isCancel(error)) {
+            // Re-throw cancel errors so React Query can handle them
+            return Promise.reject(error);
+        }
+
+        let message = 'An unexpected error occurred';
+        let status = error.response?.status || 500;
+        let code = 'UNKNOWN_ERROR';
+        let data = error.response?.data;
+
+        // Extract error details from API response
+        if (data?.message) {
+            message = data.message;
+        } else if (error.message) {
+            message = error.message;
+        }
+
+        // Example: Handle specific status codes
+        if (status === 401) {
+            message = 'Unauthorized access';
+            code = 'AUTH_ERROR';
+        } else if (status === 404) {
+            message = 'Resource not found';
+            code = 'NOT_FOUND';
+        } else if (error.code === 'ECONNABORTED') {
+            message = 'Request timed out';
+            code = 'TIMEOUT';
+        }
+
+        return Promise.reject(new ApiError(message, status, code, data));
     }
 );
 

@@ -2,6 +2,8 @@ import React from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { educationQueries } from "../../../api/queries";
 import { EmptyState } from "../../../components/ui/States";
+import SearchBar from "../../../components/ui/SearchBar";
+import { useSearch } from "../../../hooks/useSearch";
 
 // Smarter Premium Icons
 const ICONS = {
@@ -36,6 +38,9 @@ const ResourceList = ({ moduleId, activeTab }) => {
 
     const { data: currentResources = [] } = useSuspenseQuery(getQueryOptions(activeTab));
 
+    // Search Integration
+    const { searchQuery, setSearchQuery, filteredData: filteredResources } = useSearch(currentResources, ['name']);
+
     const handleDownload = (e, course) => {
         e.preventDefault();
         window.open(course.link, '_blank');
@@ -52,41 +57,56 @@ const ResourceList = ({ moduleId, activeTab }) => {
     }
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-20">
-            {currentResources.map((resource, index) => (
-                <div
-                    key={resource.id}
-                    onClick={(e) => handleDownload(e, resource)}
-                    className="group relative flex flex-col bg-[var(--bg-card)] border border-[var(--border-card)] rounded-xl p-5 hover:border-[var(--color-accent)] hover:-translate-y-1 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md animate-slide-up"
-                    style={{ animationDelay: `${index * 0.05}s` }}
-                >
-                    <div className="flex items-start justify-between mb-4">
-                        <div className={`p-3 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 text-[var(--color-accent)]`}>
-                            {ICONS[activeTab]("w-6 h-6")}
-                        </div>
-                        <span className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded">
-                            PDF
-                        </span>
-                    </div>
+        <div className="space-y-6 pb-20">
+            {/* Search Input */}
+            <div className="flex justify-end animate-fade-in">
+                <SearchBar
+                    value={searchQuery}
+                    onChange={setSearchQuery}
+                    placeholder="Rechercher une ressource..."
+                    className="w-full md:w-80"
+                />
+            </div>
 
-                    <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-2 line-clamp-2 leading-snug group-hover:text-[var(--color-accent)] transition-colors">
-                        {resource.name}
-                    </h3>
+            {/* Results Grid */}
+            {filteredResources.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filteredResources.map((resource, index) => (
+                        <a
+                            key={resource.id}
+                            href={resource.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group relative flex flex-col bg-[var(--bg-card)] border border-[var(--border-card)] rounded-xl p-5 hover:border-[var(--color-accent)] hover:-translate-y-1 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md animate-slide-up block"
+                            style={{ animationDelay: `${index * 0.05}s` }}
+                        >
+                            <div className="flex items-start justify-between mb-4">
+                                <div className={`p-3 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 text-[var(--color-accent)]`}>
+                                    {ICONS[activeTab]("w-6 h-6")}
+                                </div>
+                                <span className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded">
+                                    PDF
+                                </span>
+                            </div>
 
-                    <div className="mt-auto pt-4 flex items-center justify-between border-t border-slate-50 dark:border-slate-800/50">
-                        <span className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide">
-                            {activeTab}
-                        </span>
-                        <div className="flex items-center text-xs font-bold text-[var(--color-accent)] gap-1">
-                            TELECHARGER
-                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                        </div>
-                    </div>
+                            <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-2 line-clamp-2 leading-snug group-hover:text-[var(--color-accent)] transition-colors">
+                                {resource.name}
+                            </h3>
+
+                            <div className="mt-auto pt-4 flex items-center justify-between border-t border-slate-50 dark:border-slate-800/50">
+                                <span className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide">
+                                    {activeTab}
+                                </span>
+                                <div className="flex items-center text-xs font-bold text-[var(--color-accent)] gap-1">
+                                    TELECHARGER
+                                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                                </div>
+                            </div>
+                        </a>
+                    ))}
                 </div>
-            ))}
-        </div>
-    );
+            );
 };
 
-export default ResourceList;
-export { ICONS };
+            export default ResourceList;
+            export {ICONS};

@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { educationQueries } from "../../../api/queries";
 import { EmptyState } from "../../../components/ui/States";
@@ -34,31 +34,40 @@ const FormationsList = ({ yearId }) => {
                 return (
                     <div
                         key={formation.id}
-                        onClick={() => navigate(`/modules/${formation.id}`, { state: { formation } })}
-                        className="card-interactive"
+                        className="card-interactive relative group"
                     >
-                        {/* 1. Badge */}
-                        <div className="mb-4">
-                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${meta.color}`}>
-                                {meta.label}
-                            </span>
+                        {/* Main Link Overlay */}
+                        <Link
+                            to={`/modules/${formation.id}`}
+                            state={{ formation }}
+                            className="absolute inset-0 z-0 rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:ring-offset-2"
+                            aria-label={`View modules for ${formation.name}`}
+                        />
+
+                        <div className="relative z-10 pointer-events-none">
+                            {/* 1. Badge */}
+                            <div className="mb-4">
+                                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${meta.color}`}>
+                                    {meta.label}
+                                </span>
+                            </div>
+
+                            {/* 2. Title */}
+                            <h3 className="heading-md mb-3 line-clamp-1" title={formation.name}>
+                                {formation.name || formation.code}
+                            </h3>
+
+                            {/* 3. Description */}
+                            <p className="text-muted mb-6 line-clamp-2">
+                                Accédez à des ressources complètes, y compris des notes de cours et des examens antérieurs pour cette filière.
+                            </p>
                         </div>
 
-                        {/* 2. Title */}
-                        <h3 className="heading-md mb-3 line-clamp-1" title={formation.name}>
-                            {formation.name || formation.code}
-                        </h3>
-
-                        {/* 3. Description */}
-                        <p className="text-muted mb-6 line-clamp-2">
-                            Accédez à des ressources complètes, y compris des notes de cours et des examens antérieurs pour cette filière.
-                        </p>
-
                         {/* 4. Action Area */}
-                        <div className="mt-auto flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
-                            <span className="text-sm font-medium text-blue-600 dark:text-blue-400 flex items-center gap-1 group-hover:underline">
+                        <div className="mt-auto flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800 relative z-20">
+                            <span className="text-sm font-medium text-blue-600 dark:text-blue-400 flex items-center gap-1 group-hover:underline pointer-events-none">
                                 Voir les Modules
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                             </span>
 
                             {/* EFF Button - Hidden for 1st and 4th Year */}
@@ -68,7 +77,7 @@ const FormationsList = ({ yearId }) => {
                                         e.stopPropagation();
                                         navigate(`/eff/${formation.id}`, { state: { formation } });
                                     }}
-                                    className="text-xs font-semibold px-3 py-1 bg-rose-100 text-rose-700 rounded-md hover:bg-rose-200 dark:bg-rose-900 dark:text-rose-100 dark:hover:bg-rose-800 transition-colors"
+                                    className="text-xs font-semibold px-3 py-1 bg-rose-100 text-rose-700 rounded-md hover:bg-rose-200 dark:bg-rose-900 dark:text-rose-100 dark:hover:bg-rose-800 transition-colors pointer-events-auto"
                                 >
                                     Examens EFF
                                 </button>
