@@ -1,4 +1,7 @@
 import axios from 'axios';
+import * as Sentry from "@sentry/react";
+
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
 
 /**
  * Custom API Error Class
@@ -78,6 +81,18 @@ apiClient.interceptors.response.use(
         } else if (error.code === 'ECONNABORTED') {
             message = 'Request timed out';
             code = 'TIMEOUT';
+        }
+
+        // Capture error in Sentry (excluding cancellations and 404s/401s if desired)
+        if (status !== 404 && status !== 401) {
+            Sentry.captureException(error, {
+                extra: {
+                    url: error.config?.url,
+                    method: error.config?.method,
+                    status,
+                    code
+                }
+            });
         }
 
         return Promise.reject(new ApiError(message, status, code, data));

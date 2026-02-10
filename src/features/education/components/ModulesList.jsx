@@ -5,8 +5,6 @@ import { educationQueries } from "../../../api/queries";
 import { EmptyState } from "../../../components/ui/States";
 import SearchBar from "../../../components/ui/SearchBar";
 import { useSearch } from "../../../hooks/useSearch";
-import SearchBar from "../../../components/ui/SearchBar";
-import { useSearch } from "../../../hooks/useSearch";
 
 const ModulesList = ({ formationId }) => {
     const navigate = useNavigate();
