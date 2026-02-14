@@ -1,27 +1,27 @@
-# 🎓 OFPPT Cours - Open Source Learning Platform
+#  OFPPT Cours - Open Source Learning Platform
 
 ![App Banner](public/app-preview.png)
 
 A modern, high-performance educational platform designed for **OFPPT** trainees. Built with **React 18**, **Tailwind CSS**, and **Vite**, featuring a clean "Slate" design system, dark mode support, and full French localization.
 
-## ✨ Key Features
+##  Key Features
 
-### 📚 Comprehensive Curriculum
+###  Comprehensive Curriculum
 -   **Structure**: Browse by Year → Formation (TS/T/Q) → Modules → Courses.
 -   **Resources**: Access PDF summaries, courses, and practical exercises (TP).
 -   **Exams**: Dedicated section for **EFF** (Examen de Fin de Formation) with corrections.
 
-### 🎨 Clean Slate Design System
+###  Clean Slate Design System
 -   **Academic UI**: A distraction-free interface using a refined Slate color palette (`#f8fafc`).
 -   **Dark Mode**: Fully optimized dark theme (`#020617`) for late-night study sessions.
 -   **Responsive**: Mobile-first design that works perfectly on phones, tablets, and desktops.
 
-### 🚀 Technical Excellence
+###  Technical Excellence
 -   **Performance**: Near-instant page loads with code splitting and optimized assets.
 -   **SEO**: Fully optimized with JSON-LD structured data and meta tags for visibility.
 -   **PWA-Ready**: Built with modern web standards for a native-like experience.
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 -   **Frontend**: React 18, React Router v6
 -   **Styling**: Tailwind CSS v3, PostCSS
@@ -29,7 +29,7 @@ A modern, high-performance educational platform designed for **OFPPT** trainees.
 -   **Analytics**: Google Analytics 4 (SPA Integration)
 -   **Icons**: Heroicons / Custom SVG System
 
-## 📦 Installation
+##  Installation
 
 1.  **Clone the repository:**
     ```bash
@@ -55,7 +55,7 @@ A modern, high-performance educational platform designed for **OFPPT** trainees.
     npm run dev
     ```
 
-## 🤝 Contributing
+##  Contributing
 
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
