@@ -22,11 +22,20 @@
     --primary-hover: #60a5fa;
 }
 
-/* Base Transitions */
-* {
-    transition-property: background-color, border-color, color, fill, stroke, transform, box-shadow;
+/*
+ * Theme transitions — applied only to elements that actually change.
+ * The previous `* { transition }` rule was a major performance bottleneck,
+ * forcing the browser to compute transitions for every DOM element.
+ */
+body,
+.card-interactive,
+button,
+a,
+input,
+[class*="bg-[var("] {
+    transition-property: background-color, border-color, color, box-shadow;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
+    transition-duration: 200ms;
 }
 
 /* Scrollbar Styling */

@@ -23,7 +23,20 @@
     }
   }
 
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   --animate-fade-in: fadeIn 0.3s ease-out forwards;
+  --animate-slide-up: slideUp 0.4s ease-out both;
 }
 
 @layer base {
@@ -31,7 +44,9 @@
     /* Light Mode Palette - Slate Base */
     --bg-page: #f8fafc;
     --bg-card: #ffffff;
-    --border-card: #e5e7eb;
+    --bg-card-hover: #f1f5f9;
+    --border-card: #e2e8f0;
+    --border-card-hover: #93c5fd;
     --text-primary: #0f172a;
     --text-muted: #475569;
     --color-accent: #2563eb;
@@ -43,14 +58,16 @@
   .dark {
     /* Dark Mode Palette - Deep Slate */
     --bg-page: #020617;
-    --bg-card: #020617;
-    /* Same as bg, relies on border */
+    --bg-card: #0f172a;
+    --bg-card-hover: #1e293b;
     --border-card: #1e293b;
-    --text-primary: #e5e7eb;
+    --border-card-hover: #3b82f6;
+    --text-primary: #f1f5f9;
     --text-muted: #94a3b8;
+    --color-accent: #60a5fa;
 
-    /* Semantic Shadows - None for dark mode as requested */
-    --shadow-card: none;
+    /* Semantic Shadows - Subtle for dark mode */
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 
   html {
