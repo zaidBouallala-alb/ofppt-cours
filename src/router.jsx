@@ -24,6 +24,7 @@ const FormationsPage = lazy(() => import('./pages/FormationsPage'));
 const ModulesPage = lazy(() => import('./pages/ModulesPage'));
 const CoursesPage = lazy(() => import('./pages/CoursesPage'));
 const EffPage = lazy(() => import('./pages/EffPage'));
+const AboutProjectPage = lazy(() => import('./pages/AboutProjectPage'));
 
 export const router = createBrowserRouter([
     {
@@ -63,6 +64,10 @@ export const router = createBrowserRouter([
                 element: <EffPage />,
                 loader: effsLoader,
                 errorElement: <ErrorDisplay />,
+            },
+            {
+                path: "about-project",
+                element: <AboutProjectPage />,
             },
         ],
     },
