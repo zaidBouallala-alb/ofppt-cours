@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react"; // Assuming you have this for React
 import { VitePWA } from 'vite-plugin-pwa';
 import tailwindcss from "@tailwindcss/vite";
+import { visualizer } from "rollup-plugin-visualizer";
 
 export default defineConfig({
   server: {
@@ -77,6 +78,11 @@ export default defineConfig({
         ]
       }
     }),
-    tailwindcss()
+    tailwindcss(),
+    visualizer({
+      open: false,    // Don't open automatically — run `npx vite-bundle-visualizer` when needed
+      gzipSize: true,
+      brotliSize: true,
+    })
   ],
 });
