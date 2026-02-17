@@ -1,112 +1,137 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { educationQueries } from "../api/queries";
-import LoadingSpinner from "../components/ui/LoadingSpinner";
-import ErrorMessage from "../components/ui/ErrorMessage";
 import ThemeToggle from "../components/ui/ThemeToggle";
+import LevelCard from "../components/ui/LevelCard";
+import BrandLogo from "../components/ui/BrandLogo";
 import SEO from "../components/common/SEO";
 
 export default function EducationLevelPage() {
   const navigate = useNavigate();
   const { data: years } = useSuspenseQuery(educationQueries.years());
 
-  // Smart metadata for years
-  const getYearMetadata = (yearName, index) => {
+  /**
+   * Associe chaque niveau à un label de catégorie, une couleur,
+   * une micro-description, et une couleur d'accent pour la barre latérale.
+   */
+  const getYearMetadata = (yearName) => {
     const name = (yearName || "").toLowerCase();
 
     if (name.includes("1") || name.includes("premier")) {
       return {
         subtitle: "Début du parcours",
-        colorClass: "text-blue-600 dark:text-blue-400"
+        description: "Posez les fondations de votre parcours technique.",
+        color: "blue",
       };
     } else if (name.includes("2") || name.includes("deux")) {
       return {
         subtitle: "Orientation Professionnelle",
-        colorClass: "text-violet-600 dark:text-violet-400"
+        description: "Approfondissez vos compétences et choisissez votre voie.",
+        color: "violet",
       };
-    } else if (name.includes("3") || name.includes("trois") || name.includes("licence")) {
+    } else if (
+      name.includes("3") ||
+      name.includes("trois") ||
+      name.includes("licence")
+    ) {
       return {
         subtitle: "Maîtrise & Expertise",
-        colorClass: "text-amber-600 dark:text-amber-400"
+        description:
+          "Devenez expert et préparez votre insertion professionnelle.",
+        color: "amber",
       };
     }
 
-    // Default fallback
     return {
       subtitle: "Année Académique",
-      colorClass: "text-slate-600 dark:text-slate-400"
+      description: "Explorez les ressources pédagogiques de votre formation.",
+      color: "slate",
     };
   };
 
   return (
-    <div className="relative min-h-screen w-full transition-colors duration-200 bg-[var(--bg-page)] text-[var(--text-primary)] font-sans">
+    <div className="relative min-h-screen w-full transition-colors duration-300 bg-[var(--bg-page)] text-[var(--text-primary)] font-sans">
       <SEO
-        title="Niveaux d'Éducation"
+        title="Niveaux d'Éducation — OFPPT Cours"
         description="Sélectionnez votre niveau d'études pour parcourir les formations et les cours."
         keywords="ofppt, niveaux éducation, formations, cours"
       />
       <ThemeToggle />
 
-      <div className="flex flex-col items-center justify-center min-h-screen py-12 px-4">
+      {/* ── Decorative gradient — dual-tone for depth ── */}
+      <div
+        className="absolute inset-x-0 top-0 h-[28rem] pointer-events-none"
+        aria-hidden="true"
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-50/60 via-indigo-50/20 to-transparent dark:from-blue-950/30 dark:via-indigo-950/10 dark:to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(99,102,241,0.08),transparent)] dark:bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(99,102,241,0.12),transparent)]" />
+      </div>
 
-        {/* Header Section */}
-        <header className="flex flex-col items-center mb-10 text-center max-w-lg mx-auto animate-fade-in">
-          <div className="w-16 h-16 mb-6 p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
-            <img src="/logo.png" alt="OFPPT Logo" width="64" height="64" className="w-full h-full object-contain" />
+      {/* ── Main container ── */}
+      <div className="relative flex flex-col items-center justify-center min-h-screen py-16 px-4 sm:px-6">
+
+        {/* ── Header ── */}
+        <header className="flex flex-col items-center mb-14 text-center max-w-lg mx-auto animate-fade-in">
+
+          {/* Logo container — light bg in both modes keeps the black logo readable */}
+          <div className="w-14 h-14 mb-6 p-2 rounded-xl
+                         bg-white dark:bg-slate-800
+                         border border-slate-200/80 dark:border-slate-600
+                         shadow-sm dark:shadow-lg
+                         dark:ring-1 dark:ring-white/15
+                         transition-all duration-300 flex items-center justify-center">
+            <BrandLogo size={64} className="w-full h-full" />
           </div>
 
-          <h1 className="heading-xl mb-3 tracking-tight">
+          {/* Context badge */}
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 mb-4
+                          rounded-full text-xs font-medium tracking-wide
+                          bg-slate-100 text-slate-500
+                          dark:bg-slate-800 dark:text-slate-400
+                          border border-slate-200/60 dark:border-slate-700/60">
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]" aria-hidden="true" />
+            OFPPT · Plateforme Éducative
+          </span>
+
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-2
+                         text-[var(--text-primary)]">
             Sélectionner un Niveau
           </h1>
-          <p className="text-body text-lg text-[var(--text-muted)]">
+          <p className="text-base sm:text-lg text-[var(--text-muted)] leading-relaxed text-balance">
             Choisissez votre année de formation pour continuer.
           </p>
         </header>
 
-        {/* Cards Container - Centered, Single Column, Max Width 640px */}
-        <main className="w-full max-w-[640px] flex flex-col gap-4">
+        {/* ── Cards list ── */}
+        <section
+          aria-label="Liste des niveaux de formation"
+          className="w-full max-w-2xl flex flex-col gap-4"
+          role="list"
+        >
           {years.map((year, index) => {
-            const meta = getYearMetadata(year.name, index);
+            const meta = getYearMetadata(year.name);
             return (
-              <div
-                key={year.id}
-                onClick={() => navigate(`/formations/${year.id}`)}
-                className="group relative flex items-center justify-between p-6 rounded-lg 
-                            bg-[var(--bg-card)] border border-[var(--border-card)] 
-                            hover:border-[var(--color-accent)] cursor-pointer 
-                            shadow-[0_1px_2px_rgba(0,0,0,0.05)] dark:shadow-none transition-all duration-200 
-                            animate-slide-up hover:-translate-y-0.5"
-                style={{ animationDelay: `${index * 0.05}s` }}
-              >
-                {/* Content */}
-                <div className="flex flex-col items-start gap-1">
-                  <span className={`text-[11px] font-bold uppercase tracking-widest ${meta.colorClass}`}>
-                    {meta.subtitle}
-                  </span>
-                  <h3 className="text-lg font-semibold text-[var(--text-primary)] group-hover:text-[var(--color-accent)] transition-colors">
-                    {year.name}
-                  </h3>
-                </div>
-
-                {/* Simple Action Icon */}
-                <div className="text-[var(--text-muted)] group-hover:text-[var(--color-accent)] transition-colors">
-                  <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
+              <div role="listitem" key={year.id}>
+                <LevelCard
+                  categoryLabel={meta.subtitle}
+                  title={year.name}
+                  description={meta.description}
+                  color={meta.color}
+                  onClick={() => navigate(`/formations/${year.id}`)}
+                  animationDelay={index * 0.07}
+                />
               </div>
             );
           })}
-        </main>
+        </section>
 
-        {/* Simple Footer/Context (Optional, kept minimal as requested) */}
-        <footer className="mt-16 text-center max-w-md mx-auto">
-          <p className="text-xs text-[var(--text-muted)] uppercase tracking-widest opacity-60">
+        {/* ── Footer ── */}
+        <footer className="mt-16 text-center">
+          <p className="text-xs font-medium text-slate-400 dark:text-slate-400 uppercase tracking-widest">
             Plateforme Officielle d'Apprentissage
           </p>
         </footer>
-
       </div>
     </div>
   );
