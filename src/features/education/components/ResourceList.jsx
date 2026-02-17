@@ -93,7 +93,7 @@ const ResourceList = ({ moduleId, activeTab }) => {
                                 {resource.name}
                             </h3>
 
-                            <div className="mt-auto pt-4 flex items-center justify-between border-t border-slate-50 dark:border-slate-800/50">
+                            <div className="mt-auto pt-4 flex items-center justify-between border-t border-slate-100 dark:border-slate-800">
                                 <span className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide">
                                     {activeTab}
                                 </span>
@@ -105,8 +105,25 @@ const ResourceList = ({ moduleId, activeTab }) => {
                         </a>
                     ))}
                 </div>
-            );
+            ) : (
+                <EmptyState
+                    icon="search"
+                    title="Aucun résultat"
+                    description={`Aucune ressource ne correspond à "${searchQuery}".`}
+                    action={
+                        <button
+                            onClick={() => setSearchQuery('')}
+                            className="text-[var(--color-accent)] font-medium hover:underline"
+                        >
+                            Effacer la recherche
+                        </button>
+                    }
+                />
+            )
+            }
+        </div>
+    );
 };
 
-            export default ResourceList;
-            export {ICONS};
+export default ResourceList;
+export { ICONS };
