@@ -44,7 +44,7 @@ export default function InstallPrompt() {
         <div className="fixed bottom-4 left-4 z-50 animate-fade-in">
             <button
                 onClick={handleInstallClick}
-                className="flex items-center gap-3 px-4 py-3 bg-[var(--color-primary)] text-white rounded-lg shadow-lg hover:bg-blue-700 transition-all hover:scale-105"
+                className="flex items-center gap-3 px-4 py-3 bg-[var(--color-accent)] text-white rounded-lg shadow-lg hover:opacity-90 transition-all hover:scale-105"
             >
                 <div className="p-2 bg-white/20 rounded-md">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
