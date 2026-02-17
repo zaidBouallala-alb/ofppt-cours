@@ -13,6 +13,13 @@ export default function Footer() {
                     <span className="text-lg font-semibold text-[var(--text-primary)]">OFPPT Cours</span>
                 </div>
 
+                {/* Navigation Links */}
+                <div className="flex gap-6 text-sm font-medium">
+                    <a href="/about-project" className="text-[var(--text-muted)] hover:text-[var(--color-accent)] transition-colors">
+                        About Project
+                    </a>
+                </div>
+
                 {/* Social Links */}
                 <div className="flex items-center gap-6">
                     <a
