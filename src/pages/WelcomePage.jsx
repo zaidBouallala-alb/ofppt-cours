@@ -7,7 +7,7 @@ export default function EducateWelcomePage() {
   const navigate = useNavigate();
 
   return (
-    <div className="relative w-full transition-colors duration-300">
+    <div className="relative w-full transition-colors duration-300 bg-[var(--bg-page)] text-[var(--text-primary)]">
       <SEO
         title="Welcome - OFPPT Cours"
         description="The #1 platform for OFPPT students. Access free courses, EFF exams, and summaries for Technicien Spécialisé, DD, and ID."
@@ -36,7 +36,7 @@ export default function EducateWelcomePage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
             <button
               onClick={() => navigate("/levels")}
-              className="w-full sm:w-auto px-10 py-4 bg-[var(--color-accent)] text-white font-medium rounded-full hover:opacity-90 transition-all active:scale-95 flex items-center justify-center gap-2 shadow-lg hover:shadow-[var(--color-accent)]/20"
+              className="w-full sm:w-auto px-10 py-4 bg-[var(--color-accent)] text-white font-medium rounded-full hover:opacity-90 transition-all active:scale-95 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
             >
               Start Learning
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
