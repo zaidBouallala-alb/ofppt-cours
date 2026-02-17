@@ -90,7 +90,24 @@ const ModulesList = ({ formationId }) => {
                         </Link>
                     ))}
                 </div>
-            );
+            ) : (
+                <EmptyState
+                    icon="search"
+                    title="Aucun résultat"
+                    description={`Aucun module ne correspond à "${searchQuery}".`}
+                    action={
+                        <button
+                            onClick={() => setSearchQuery('')}
+                            className="text-[var(--color-accent)] font-medium hover:underline"
+                        >
+                            Effacer la recherche
+                        </button>
+                    }
+                />
+            )
+            }
+        </div>
+    );
 };
 
-            export default ModulesList;
+export default ModulesList;
