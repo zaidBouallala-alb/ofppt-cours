@@ -2,7 +2,7 @@
 
 ![App Banner](public/app-preview.png)
 
-A modern, high-performance educational platform designed for **OFPPT** trainees. Built with **React 18**, **Tailwind CSS**, and **Vite**, featuring a clean "Slate" design system, dark mode support, and full French localization.
+A modern, high-performance educational platform designed for **OFPPT** trainees. Built with **React 19**, **Tailwind CSS v4**, and **Vite (Rolldown)**, featuring a clean "Slate" design system, intelligent dark mode, and full French localization.
 
 ## ✨ Key Features
 
@@ -13,20 +13,26 @@ A modern, high-performance educational platform designed for **OFPPT** trainees.
 
 ### 🎨 Clean Slate Design System
 -   **Academic UI**: A distraction-free interface using a refined Slate color palette (`#f8fafc`).
--   **Dark Mode**: Fully optimized dark theme (`#020617`) for late-night study sessions.
+-   **Smart Dark Mode**: Fully optimized dark theme (`#020617`) with intelligent logo adaptation and contrast handling.
 -   **Responsive**: Mobile-first design that works perfectly on phones, tablets, and desktops.
 
 ### 🚀 Technical Excellence
--   **Performance**: Near-instant page loads with code splitting and optimized assets.
+-   **Performance**: Near-instant page loads with **Rolldown** bundler and code splitting.
 -   **SEO**: Fully optimized with JSON-LD structured data and meta tags for visibility.
 -   **PWA-Ready**: Built with modern web standards for a native-like experience.
+-   **Error Tracking**: Integrated with **Sentry** for real-time error monitoring.
 
-## 🛠️ Tech Stack
+### ℹ️ About Project
+-   **Technical Showcase**: A dedicated `/about-project` page detailing the architecture and design choices.
 
--   **Frontend**: React 18, React Router v6
--   **Styling**: Tailwind CSS v3, PostCSS
--   **Build Tool**: Vite
+## 🛠️ Cutting-Edge Tech Stack
+
+-   **Frontend**: React 19, React Router v7
+-   **Styling**: Tailwind CSS v4, PostCSS
+-   **Build Tool**: Vite (powered by Rolldown)
+-   **State Management**: TanStack Query v5
 -   **Analytics**: Google Analytics 4 (SPA Integration)
+-   **Monitoring**: Sentry
 -   **Icons**: Heroicons / Custom SVG System
 
 ## 📦 Installation
