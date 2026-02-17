@@ -2,106 +2,68 @@ import React from 'react';
 
 /**
  * Error Boundary Component
- * Catches JavaScript errors anywhere in the child component tree
+ * Catches JavaScript errors anywhere in the child component tree.
+ * Now uses Tailwind classes for proper dark/light mode support.
  */
 class ErrorBoundary extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { hasError: false, error: null, errorInfo: null };
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null, errorInfo: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('Error caught by boundary:', error, errorInfo);
+    this.state = { hasError: true, error, errorInfo };
+  }
+
+  handleReset = () => {
+    this.setState({ hasError: false, error: null, errorInfo: null });
+    window.location.href = '/';
+  };
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="flex flex-col items-center justify-center min-h-screen
+                               bg-gradient-to-br from-blue-600 via-indigo-700 to-slate-900
+                               dark:from-slate-900 dark:via-indigo-950 dark:to-slate-950
+                               p-8 text-center">
+          {/* Icon */}
+          <div className="text-7xl sm:text-8xl mb-6" aria-hidden="true">💥</div>
+
+          {/* Title */}
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-5 tracking-tight">
+            Oops!
+          </h1>
+
+          {/* Message */}
+          <p className="text-lg sm:text-xl text-white/80 mb-10 max-w-md leading-relaxed">
+            Something went wrong. Don't worry, we'll get you back on track.
+          </p>
+
+          {/* Button */}
+          <button
+            onClick={this.handleReset}
+            className="px-8 py-4 text-lg font-bold text-slate-900
+                                  bg-gradient-to-r from-white to-yellow-300
+                                  rounded-2xl shadow-lg
+                                  hover:-translate-y-1 hover:shadow-xl
+                                  active:translate-y-0 active:shadow-md
+                                  transition-all duration-200
+                                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-700"
+          >
+            Go to Home
+          </button>
+        </div>
+      );
     }
 
-    static getDerivedStateFromError(error) {
-        return { hasError: true };
-    }
-
-    componentDidCatch(error, errorInfo) {
-        console.error('Error caught by boundary:', error, errorInfo);
-        this.state = { hasError: true, error, errorInfo };
-    }
-
-    handleReset = () => {
-        this.setState({ hasError: false, error: null, errorInfo: null });
-        window.location.href = '/';
-    };
-
-    render() {
-        if (this.state.hasError) {
-            return (
-                <>
-                    <style>{`
-            @import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
-            
-            .error-boundary-container {
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              min-height: 100vh;
-              background: linear-gradient(168.09deg, #131CC3 0%, #FFFFFF 98.77%);
-              padding: 30px;
-              font-family: 'Itim', cursive;
-            }
-
-            .error-boundary-icon {
-              font-size: 80px;
-              margin-bottom: 20px;
-            }
-
-            .error-boundary-title {
-              font-size: 48px;
-              color: #FFFFFF;
-              margin: 0 0 20px 0;
-              text-align: center;
-            }
-
-            .error-boundary-message {
-              font-size: 24px;
-              color: rgba(255, 255, 255, 0.9);
-              margin: 0 0 30px 0;
-              text-align: center;
-              max-width: 400px;
-            }
-
-            .error-boundary-button {
-              font-family: 'Itim', cursive;
-              font-size: 24px;
-              padding: 15px 40px;
-              background: linear-gradient(90deg, #FFFFFF 0%, #FFF200 100%);
-              border: none;
-              border-radius: 15px;
-              color: #000000;
-              cursor: pointer;
-              transition: all 0.3s ease;
-              box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            }
-
-            .error-boundary-button:hover {
-              transform: translateY(-3px);
-              box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-            }
-
-            .error-boundary-button:active {
-              transform: translateY(-1px);
-              box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            }
-          `}</style>
-
-                    <div className="error-boundary-container">
-                        <div className="error-boundary-icon">💥</div>
-                        <h1 className="error-boundary-title">Oops!</h1>
-                        <p className="error-boundary-message">
-                            Something went wrong. Don't worry, we'll get you back on track.
-                        </p>
-                        <button className="error-boundary-button" onClick={this.handleReset}>
-                            Go to Home
-                        </button>
-                    </div>
-                </>
-            );
-        }
-
-        return this.props.children;
-    }
+    return this.props.children;
+  }
 }
 
 export default ErrorBoundary;
