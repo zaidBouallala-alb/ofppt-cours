@@ -36,9 +36,7 @@ export default function CoursesPage() {
                     <h1 className="text-3xl font-bold tracking-tight text-[var(--text-primary)] mb-2">
                         Ressources Pédagogiques
                     </h1>
-                    <p className="text-[var(--text-muted)]">
-                        Module: <span className="font-semibold text-[var(--color-accent)]">{moduleId}</span>
-                    </p>
+
                 </div>
 
                 {/* Tabs */}
