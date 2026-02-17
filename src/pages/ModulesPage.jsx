@@ -26,7 +26,7 @@ export default function ModulesPage() {
                 {/* Header - Minimalist */}
                 <div className="mb-10 animate-fade-in">
                     <button
-                        onClick={() => navigate(`/formations/${formation?.id_annee || 1}`)}
+                        onClick={() => navigate(`/formations/${formation?.year_id || 1}`)}
                         className="mb-6 text-sm font-medium text-[var(--text-muted)] hover:text-[var(--color-accent)] flex items-center gap-2 transition-colors"
                     >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
