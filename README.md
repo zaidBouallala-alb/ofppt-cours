@@ -1,31 +1,31 @@
-# 🎓 OFPPT Cours - Open Source Learning Platform
+#  OFPPT Cours - Open Source Learning Platform
 
 ![App Banner](public/app-preview.png)
 
 A modern, high-performance educational platform designed for **OFPPT** trainees. Built with **React 19**, **Tailwind CSS v4**, and **Vite (Rolldown)**, featuring a clean "Slate" design system, intelligent dark mode, and full French localization.
 
-## ✨ Key Features
+##  Key Features
 
-### 📚 Comprehensive Curriculum
+###  Comprehensive Curriculum
 -   **Structure**: Browse by Year → Formation (TS/T/Q) → Modules → Courses.
 -   **Resources**: Access PDF summaries, courses, and practical exercises (TP).
 -   **Exams**: Dedicated section for **EFF** (Examen de Fin de Formation) with corrections.
 
-### 🎨 Clean Slate Design System
+###  Clean Slate Design System
 -   **Academic UI**: A distraction-free interface using a refined Slate color palette (`#f8fafc`).
 -   **Smart Dark Mode**: Fully optimized dark theme (`#020617`) with intelligent logo adaptation and contrast handling.
 -   **Responsive**: Mobile-first design that works perfectly on phones, tablets, and desktops.
 
-### 🚀 Technical Excellence
+###  Technical Excellence
 -   **Performance**: Near-instant page loads with **Rolldown** bundler and code splitting.
 -   **SEO**: Fully optimized with JSON-LD structured data and meta tags for visibility.
 -   **PWA-Ready**: Built with modern web standards for a native-like experience.
 -   **Error Tracking**: Integrated with **Sentry** for real-time error monitoring.
 
-### ℹ️ About Project
+###  About Project
 -   **Technical Showcase**: A dedicated `/about-project` page detailing the architecture and design choices.
 
-## 🛠️ Cutting-Edge Tech Stack
+##  Cutting-Edge Tech Stack
 
 -   **Frontend**: React 19, React Router v7
 -   **Styling**: Tailwind CSS v4, PostCSS
@@ -35,7 +35,7 @@ A modern, high-performance educational platform designed for **OFPPT** trainees.
 -   **Monitoring**: Sentry
 -   **Icons**: Heroicons / Custom SVG System
 
-## 📦 Installation
+##  Installation
 
 1.  **Clone the repository:**
     ```bash
@@ -61,7 +61,7 @@ A modern, high-performance educational platform designed for **OFPPT** trainees.
     npm run dev
     ```
 
-## 🤝 Contributing
+##  Contributing
 
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
