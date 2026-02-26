@@ -5,6 +5,8 @@ export default function InstallPrompt() {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
+        if (sessionStorage.getItem('installPromptDismissed')) return;
+
         const handler = (e) => {
             // Prevent Chrome 67 and earlier from automatically showing the prompt
             e.preventDefault();
@@ -33,6 +35,7 @@ export default function InstallPrompt() {
                 console.log('User accepted the install prompt');
             } else {
                 console.log('User dismissed the install prompt');
+                sessionStorage.setItem('installPromptDismissed', 'true');
             }
             setDeferredPrompt(null);
         });
@@ -41,10 +44,10 @@ export default function InstallPrompt() {
     if (!isVisible) return null;
 
     return (
-        <div className="fixed bottom-4 left-4 z-50 animate-fade-in">
+        <div className="fixed bottom-4 left-4 z-50 animate-fade-in flex items-center gap-3 px-4 py-3 bg-[var(--color-accent)] text-white rounded-lg shadow-lg">
             <button
                 onClick={handleInstallClick}
-                className="flex items-center gap-3 px-4 py-3 bg-[var(--color-accent)] text-white rounded-lg shadow-lg hover:opacity-90 transition-all hover:scale-105"
+                className="flex items-center gap-3 hover:opacity-90 transition-all hover:scale-105 focus:outline-none"
             >
                 <div className="p-2 bg-white/20 rounded-md">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -55,11 +58,19 @@ export default function InstallPrompt() {
                     <p className="text-xs font-medium opacity-90">Install App</p>
                     <p className="text-sm font-bold">OFPPT Cours</p>
                 </div>
-                <div className="ml-2">
-                    <svg className="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </div>
+            </button>
+            <button
+                onClick={(e) => {
+                    e.stopPropagation();
+                    setIsVisible(false);
+                    sessionStorage.setItem('installPromptDismissed', 'true');
+                }}
+                className="ml-2 p-1.5 hover:bg-white/20 rounded-full transition-colors focus:outline-none"
+                aria-label="Dismiss install prompt"
+            >
+                <svg className="w-5 h-5 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
             </button>
         </div>
     );
