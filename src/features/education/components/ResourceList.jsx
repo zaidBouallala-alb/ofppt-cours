@@ -1,6 +1,7 @@
 import React from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { educationQueries } from "../../../api/queries";
+import { downloadFile } from "../../../api/educationService";
 import { EmptyState } from "../../../components/ui/States";
 import SearchBar from "../../../components/ui/SearchBar";
 import { useSearch } from "../../../hooks/useSearch";
@@ -39,11 +40,13 @@ const ResourceList = ({ moduleId, activeTab }) => {
     const { data: currentResources = [] } = useSuspenseQuery(getQueryOptions(activeTab));
 
     // Search Integration
-    const { searchQuery, setSearchQuery, filteredData: filteredResources } = useSearch(currentResources, ['name']);
+    const { searchQuery, setSearchQuery, filteredData: filteredResources } = useSearch(currentResources, ['title', 'name']);
 
-    const handleDownload = (e, course) => {
+    const handleDownload = (e, resource) => {
         e.preventDefault();
-        window.open(course.link, '_blank');
+        const url = resource.file_url || resource.link;
+        const name = resource.title || resource.name || `telechargement-${activeTab}.pdf`;
+        downloadFile(url, name);
     };
 
     if (currentResources.length === 0) {
@@ -72,12 +75,10 @@ const ResourceList = ({ moduleId, activeTab }) => {
             {filteredResources.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {filteredResources.map((resource, index) => (
-                        <a
+                        <button
                             key={resource.id}
-                            href={resource.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group relative flex flex-col bg-[var(--bg-card)] border border-[var(--border-card)] rounded-xl p-5 hover:border-[var(--color-accent)] hover:-translate-y-1 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md animate-slide-up block"
+                            onClick={(e) => handleDownload(e, resource)}
+                            className="text-left group relative flex flex-col bg-[var(--bg-card)] border border-[var(--border-card)] rounded-xl p-5 hover:border-[var(--color-accent)] hover:-translate-y-1 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md animate-slide-up block w-full"
                             style={{ animationDelay: `${index * 0.05}s` }}
                         >
                             <div className="flex items-start justify-between mb-4">
@@ -90,7 +91,7 @@ const ResourceList = ({ moduleId, activeTab }) => {
                             </div>
 
                             <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-2 line-clamp-2 leading-snug group-hover:text-[var(--color-accent)] transition-colors">
-                                {resource.name}
+                                {resource.title || resource.name}
                             </h3>
 
                             <div className="mt-auto pt-4 flex items-center justify-between border-t border-slate-100 dark:border-slate-800">
@@ -102,7 +103,7 @@ const ResourceList = ({ moduleId, activeTab }) => {
                                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                                 </div>
                             </div>
-                        </a>
+                        </button>
                     ))}
                 </div>
             ) : (
