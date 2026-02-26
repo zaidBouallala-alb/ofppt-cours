@@ -109,21 +109,26 @@ export default function EducationLevelPage() {
           className="w-full max-w-2xl flex flex-col gap-4"
           role="list"
         >
-          {years.map((year, index) => {
-            const meta = getYearMetadata(year.name);
-            return (
-              <div role="listitem" key={year.id}>
-                <LevelCard
-                  categoryLabel={meta.subtitle}
-                  title={year.name}
-                  description={meta.description}
-                  color={meta.color}
-                  onClick={() => navigate(`/formations/${year.id}`)}
-                  animationDelay={index * 0.07}
-                />
-              </div>
-            );
-          })}
+          {years
+            .filter((year) => {
+              const name = (year.name || "").toLowerCase();
+              return name.match(/1|2|3|premier|deux|trois/);
+            })
+            .map((year, index) => {
+              const meta = getYearMetadata(year.name);
+              return (
+                <div role="listitem" key={year.id}>
+                  <LevelCard
+                    categoryLabel={meta.subtitle}
+                    title={year.name}
+                    description={meta.description}
+                    color={meta.color}
+                    onClick={() => navigate(`/formations/${year.id}`)}
+                    animationDelay={index * 0.07}
+                  />
+                </div>
+              );
+            })}
         </section>
 
         {/* ── Footer ── */}
