@@ -9,12 +9,15 @@ export default function FormationsPage() {
     const navigate = useNavigate();
     const { yearId } = useParams();
 
+    const logicalYearNum = parseInt(yearId, 10);
+    const displayYear = !isNaN(logicalYearNum) ? ((logicalYearNum - 1) % 3) + 1 : yearId;
+
     return (
         <>
             <SEO
-                title={`Formations - Année ${yearId} | OFPPT Cours`}
-                description={`Découvrez les filières de l'année ${yearId}. Accédez aux cours, modules et examens pour le Développement Digital, Infrastructure, et plus.`}
-                keywords={`formations année ${yearId}, ofppt, dev, infra, gestion, cours`}
+                title={`Formations - Année ${displayYear} | OFPPT Cours`}
+                description={`Découvrez les filières de l'année ${displayYear}. Accédez aux cours, modules et examens pour le Développement Digital, Infrastructure, et plus.`}
+                keywords={`formations année ${displayYear}, ofppt, dev, infra, gestion, cours`}
             />
             <div className="relative min-h-screen bg-[var(--bg-page)] text-[var(--text-primary)] font-sans transition-colors duration-200">
                 <ThemeToggle />
@@ -40,7 +43,7 @@ export default function FormationsPage() {
 
                         <div className="space-y-4">
                             <span className="inline-block px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase bg-blue-100/80 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300 backdrop-blur-md">
-                                Année {yearId}
+                                Année {displayYear}
                             </span>
                             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-[var(--text-primary)]">
                                 Choisissez votre <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600 dark:from-blue-400 dark:to-violet-400">Filière</span>
