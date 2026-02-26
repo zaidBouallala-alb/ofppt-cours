@@ -97,18 +97,41 @@ const educationService = {
     },
 
     /**
-     * Helper function to download a file
+     * Helper function to download a file (works cross-origin)
+     * Uses fetch + blob for cross-origin URLs to force download
+     * Falls back to window.open if fetch fails (e.g. CORS blocked)
      * @param {string} url - The URL of the file to download
      * @param {string} filename - The filename to save as
      */
-    downloadFile: (url, filename) => {
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = filename || 'download';
-        link.target = '_blank';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+    downloadFile: async (url, filename) => {
+        if (!url) return;
+
+        const name = filename || 'download.pdf';
+
+        try {
+            // Try fetch + blob approach (works for most servers)
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Network response was not ok');
+
+            const blob = await response.blob();
+            const blobUrl = window.URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            link.download = name;
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+
+            // Cleanup
+            setTimeout(() => {
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(blobUrl);
+            }, 100);
+        } catch {
+            // Fallback: open in new tab (e.g. if CORS blocks fetch)
+            window.open(url, '_blank');
+        }
     }
 };
 
