@@ -1,6 +1,7 @@
 import React from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { educationQueries } from "../../../api/queries";
+import { downloadFile } from "../../../api/educationService";
 import { EmptyState } from "../../../components/ui/States";
 
 // EFF Icon
@@ -14,7 +15,10 @@ const EffList = ({ formationId }) => {
     const { data: effs } = useSuspenseQuery(educationQueries.effs(formationId));
 
     const handleDownload = (e, eff) => {
-        window.open(eff.link, '_blank');
+        e.preventDefault();
+        const url = eff.file_url || eff.link;
+        const name = eff.title || eff.name || 'examen-eff.pdf';
+        downloadFile(url, name);
     };
 
     if (effs.length === 0) {
@@ -30,12 +34,10 @@ const EffList = ({ formationId }) => {
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-20">
             {effs.map((eff, index) => (
-                <a
+                <button
                     key={eff.id || index}
-                    href={eff.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 hover:shadow-md transition-all duration-200 cursor-pointer flex items-center justify-between gap-5 animate-slide-up block"
+                    onClick={(e) => handleDownload(e, eff)}
+                    className="text-left w-full group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 hover:shadow-md transition-all duration-200 cursor-pointer flex items-center justify-between gap-5 animate-slide-up block"
                     style={{ animationDelay: `${index * 0.05}s` }}
                 >
                     {/* Left Side: Icon & Info */}
@@ -64,7 +66,7 @@ const EffList = ({ formationId }) => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                         </svg>
                     </div>
-                </a>
+                </button>
             ))}
         </div>
     );
